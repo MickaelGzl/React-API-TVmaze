@@ -1,4 +1,6 @@
 import { useEffect } from "react"
+import DOMPurify from 'dompurify'
+
 
 export function ResearchInput(props){
 
@@ -7,12 +9,13 @@ export function ResearchInput(props){
        fetch(`https://api.tvmaze.com/search/shows?q=${props.search}`)
         .then(response => response.json())
         .then(data => props.setDatas(data))
+        .catch(error => console.log(`Error: ${error}`))
     }, [props.search])
     
     
-
     const handleChange = (e) =>{
-        props.setSearch(e.target.value)
+        // props.setSearch(DOMPurify.sanitize(e.target.value))
+        props.setSearch(DOMPurify.sanitize(e.target.value))
     }
 
 
